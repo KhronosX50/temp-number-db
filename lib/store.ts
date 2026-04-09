@@ -45,9 +45,12 @@ class TempNumberStore {
 
   getAll(): TempNumber[] {
     const now = Date.now();
-    for (const [id, num] of this.numbers) {
-      if (num.expiresAt < now) this.numbers.delete(id);
-    }
+    // Fixed: Use forEach instead of for...of
+    this.numbers.forEach((num, id) => {
+      if (num.expiresAt < now) {
+        this.numbers.delete(id);
+      }
+    });
     return Array.from(this.numbers.values()).sort((a, b) => b.createdAt - a.createdAt);
   }
 
@@ -76,4 +79,3 @@ class TempNumberStore {
 }
 
 export const store = new TempNumberStore();
-
