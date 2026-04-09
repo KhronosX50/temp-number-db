@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
     let num = numbers.find(n => n.number === to);
     
     if (!num) {
-      num = store.create(to, 'US', 60);
+      num = store.create(to, 'US', 10080);
     }
 
     const msg = store.addMessage(num.id, from, message);
